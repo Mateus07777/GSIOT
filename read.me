@@ -1,0 +1,194 @@
+🌿 Projeto Bem-Estar – API
+
+API em Python desenvolvida para analisar dados de bem-estar, oferecendo um índice de saúde, risco de burnout e feedback inteligente com base nas informações enviadas pelo usuário.
+
+👤 Autores
+
+Mateus Teni Pierro – RM555125
+
+Heitor Romero da Rocha – RM558301
+
+Leonardo Bianchi – RM558576
+
+📌 Visão Geral
+
+A API recebe quatro entradas principais:
+
+humor
+
+foco
+
+pausas
+
+horas trabalhadas
+
+E retorna:
+
+✔ índice de bem-estar
+
+✔ risco de burnout
+
+✔ feedback automático
+
+✔ dados recebidos
+
+Esta aplicação foi projetada para integração com apps mobile, dashboards ou sistemas de análise de comportamento.
+
+🌐 Deploy da API
+
+A API está hospedada no Render com deploy automático a partir da branch main.
+
+🔗 URL Base
+
+👉 https://projeto-bem-estar-api.onrender.com
+
+🔐 Autenticação
+
+Nenhuma autenticação é exigida.
+A API está totalmente aberta para testes.
+
+🗄 Banco de Dados
+
+Este projeto não utiliza banco externo.
+Todos os cálculos são processados em memória.
+
+🧱 Estrutura do Projeto
+projeto_bem_estar/
+│
+├── api/
+│   ├── app.py           # Rotas e inicialização da API
+│   ├── services.py      # Lógica de negócio (cálculos)
+│   ├── .env             # Variáveis de ambiente (uso local)
+│   └── requirements.txt # Dependências
+│
+├── venv/                # Ambiente virtual (não enviado ao GitHub)
+├── .gitignore
+└── readme.md
+
+⚙️ Como Executar o Projeto Localmente
+1️⃣ Criar ambiente virtual
+python -m venv venv
+
+2️⃣ Ativar ambiente virtual
+
+Windows:
+
+venv\Scripts\activate
+
+
+Linux/Mac:
+
+source venv/bin/activate
+
+3️⃣ Instalar dependências
+pip install -r api/requirements.txt
+
+4️⃣ Rodar a API
+python api/app.py
+
+
+A API estará disponível em:
+
+👉 http://127.0.0.1:5000
+
+📡 Rotas da API
+✔ GET /**
+
+Verifica se a API está online.
+
+Exemplo de resposta:
+
+{
+  "status": "API Bem Estar Online!",
+  "endpoints": {
+    "analyze_checkin": "/analyze-checkin (POST)"
+  }
+}
+
+✔ POST /analyze-checkin
+
+Analisa dados de bem-estar enviados pelo usuário.
+
+📤 Exemplo de Requisição
+POST https://projeto-bem-estar-api.onrender.com/analyze-checkin
+
+
+Body (JSON):
+
+{
+  "humor": 3,
+  "foco": 2,
+  "pausas": 2,
+  "horas_trabalhadas": 9
+}
+
+📥 Exemplo de Resposta (200 OK)
+{
+  "dados_recebidos": {
+    "foco": 2,
+    "horas_trabalhadas": 9,
+    "humor": 3,
+    "pausas": 2
+  },
+  "feedback_ia": "Percebo que seu bem-estar está um pouco abaixo do ideal...",
+  "indice_bem_estar": 2.33,
+  "risco_burnout": 1.2
+}
+
+📘 Descrição dos Campos Enviados
+Campo	Tipo	Descrição
+humor	int (1–5)	Avaliação emocional do dia
+foco	int (1–5)	Nível de concentração
+pausas	int (0–5)	Quantidade de pausas realizadas
+horas_trabalhadas	int	Horas totais de trabalho no dia
+🧠 Lógica de Cálculo
+📊 Índice de Bem-Estar (0–5)
+
+Calculado com base em:
+
+humor
+
+foco
+
+pausas
+
+penalizações por carga excessiva
+
+Quanto maior o valor → melhor o bem-estar.
+
+🔥 Risco de Burnout (0–3)
+
+Baseado em:
+
+excesso de horas trabalhadas
+
+baixos níveis de humor
+
+pausas insuficientes
+
+Quanto maior o valor → maior o risco.
+
+🧪 Como Testar no Postman
+
+Clique em New → Request
+
+Escolha método POST
+
+Use a URL:
+
+https://projeto-bem-estar-api.onrender.com/analyze-checkin
+
+
+Vá em Body → Raw → JSON
+
+Envie:
+
+{
+  "humor": 3,
+  "foco": 2,
+  "pausas": 2,
+  "horas_trabalhadas": 9
+}
+
+
+Clique Send
