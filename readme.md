@@ -14,22 +14,30 @@ Leonardo Bianchi – RM558576
 
 A API recebe quatro entradas principais:
 
+•
 humor
 
+•
 foco
 
+•
 pausas
 
-horas trabalhadas
+•
+horas_trabalhadas
 
 E retorna:
 
+•
 ✔ índice de bem-estar
 
+•
 ✔ risco de burnout
 
+•
 ✔ feedback automático
 
+•
 ✔ dados recebidos
 
 Esta aplicação foi projetada para integração com apps mobile, dashboards ou sistemas de análise de comportamento.
@@ -42,78 +50,76 @@ A API está hospedada no Render com deploy automático a partir da branch main.
 
 👉 https://projeto-bem-estar-api.onrender.com
 
+Ao acessar a URL base, você verá uma página de status confirmando que a API está online.
+
 🔐 Autenticação
 
-Nenhuma autenticação é exigida.
-A API está totalmente aberta para testes.
+Nenhuma autenticação é exigida. A API está totalmente aberta para testes.
 
 🗄 Banco de Dados
 
-Este projeto não utiliza banco externo.
-Todos os cálculos são processados em memória.
+Este projeto não utiliza banco externo. Todos os cálculos são processados em memória.
 
 🧱 Estrutura do Projeto
+
+Plain Text
+
+
 projeto_bem_estar/
 │
 ├── api/
+│   ├── templates/       # Arquivos HTML
+│   │   └── index.html   # Página de status da API
 │   ├── app.py           # Rotas e inicialização da API
-│   ├── services.py      # Lógica de negócio (cálculos)
+│   ├── services.py      # Lógica de negócio (cálculos )
 │   ├── .env             # Variáveis de ambiente (uso local)
 │   └── requirements.txt # Dependências
 │
 ├── venv/                # Ambiente virtual (não enviado ao GitHub)
 ├── .gitignore
-└── readme.md
+└── README.md            # Documentação do projeto
+
 
 ⚙️ Como Executar o Projeto Localmente
-1️⃣ Criar ambiente virtual
-python -m venv venv
 
-2️⃣ Ativar ambiente virtual
+1.
+Criar ambiente virtual
 
+2.
+Ativar ambiente virtual
+
+•
 Windows:
 
-venv\Scripts\activate
-
-
+•
 Linux/Mac:
 
-source venv/bin/activate
-
-3️⃣ Instalar dependências
-pip install -r api/requirements.txt
-
-4️⃣ Rodar a API
-python api/app.py
 
 
-A API estará disponível em:
+3.
+Instalar dependências
 
-👉 http://127.0.0.1:5000
+4.
+Rodar a API
 
 📡 Rotas da API
-✔ GET /**
 
-Verifica se a API está online.
+✔ GET /
 
-Exemplo de resposta:
-
-{
-  "status": "API Bem Estar Online!",
-  "endpoints": {
-    "analyze_checkin": "/analyze-checkin (POST)"
-  }
-}
+Verifica se a API está online. Esta rota agora retorna uma página HTML de status.
 
 ✔ POST /analyze-checkin
 
 Analisa dados de bem-estar enviados pelo usuário.
 
 📤 Exemplo de Requisição
+
 POST https://projeto-bem-estar-api.onrender.com/analyze-checkin
 
+Body (JSON ):
 
-Body (JSON):
+JSON
+
 
 {
   "humor": 3,
@@ -122,7 +128,12 @@ Body (JSON):
   "horas_trabalhadas": 9
 }
 
+
 📥 Exemplo de Resposta (200 OK)
+
+JSON
+
+
 {
   "dados_recebidos": {
     "foco": 2,
@@ -135,24 +146,43 @@ Body (JSON):
   "risco_burnout": 1.2
 }
 
+
 📘 Descrição dos Campos Enviados
-Campo	Tipo	Descrição
-humor	int (1–5)	Avaliação emocional do dia
-foco	int (1–5)	Nível de concentração
-pausas	int (0–5)	Quantidade de pausas realizadas
-horas_trabalhadas	int	Horas totais de trabalho no dia
+
+Campo
+Tipo
+Descrição
+humor
+int (1–5)
+Avaliação emocional do dia
+foco
+int (1–5)
+Nível de concentração
+pausas
+int (0–5)
+Quantidade de pausas realizadas
+horas_trabalhadas
+int
+Horas totais de trabalho no dia
+
+
 🧠 Lógica de Cálculo
+
 📊 Índice de Bem-Estar (0–5)
 
 Calculado com base em:
 
+•
 humor
 
+•
 foco
 
+•
 pausas
 
-penalizações por carga excessiva
+•
+Penalizações por carga excessiva
 
 Quanto maior o valor → melhor o bem-estar.
 
@@ -160,35 +190,34 @@ Quanto maior o valor → melhor o bem-estar.
 
 Baseado em:
 
-excesso de horas trabalhadas
+•
+Excesso de horas trabalhadas
 
-baixos níveis de humor
+•
+Baixos níveis de humor
 
-pausas insuficientes
+•
+Pausas insuficientes
 
 Quanto maior o valor → maior o risco.
 
 🧪 Como Testar no Postman
 
-Clique em New → Request
+1.
+Clique em New → Request.
 
-Escolha método POST
+2.
+Escolha o método POST.
 
-Use a URL:
+3.
+Use a URL: https://projeto-bem-estar-api.onrender.com/analyze-checkin
 
-https://projeto-bem-estar-api.onrender.com/analyze-checkin
+4.
+Vá em Body → Raw → JSON.
 
+5.
+Envie o corpo da requisição:
 
-Vá em Body → Raw → JSON
+6.
+Clique em Send.
 
-Envie:
-
-{
-  "humor": 3,
-  "foco": 2,
-  "pausas": 2,
-  "horas_trabalhadas": 9
-}
-
-
-Clique Send
