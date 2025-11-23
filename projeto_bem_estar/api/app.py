@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 import services
 
 app = Flask(__name__)
@@ -6,12 +6,7 @@ app = Flask(__name__)
 # Rota raiz para o Render não retornar 404
 @app.route('/', methods=['GET'])
 def home():
-    return jsonify({
-        "status": "API Bem Estar Online!",
-        "endpoints": {
-            "analyze_checkin": "/analyze-checkin (POST)"
-        }
-    })
+    return render_template('index.html')
 
 @app.route('/analyze-checkin', methods=['POST'])
 def analyze_checkin():
